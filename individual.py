@@ -8,6 +8,7 @@ class Individual:
         self.weight_used = 0
         self.items = items
         self.score = 0
+        self.iteration = 0
 
     def generate_genotype(self):
         for i in range(len(self.genotype)):
@@ -36,7 +37,7 @@ class Individual:
 
     def breeding(self, ind_a, ind_b):
         for i in range(len(self.genotype)):
-            if i< len(self.genotype)/2:
+            if i < len(self.genotype)/2:
                 self.genotype[i] = ind_a.genotype[i]
             else:
                 self.genotype[i] = ind_b.genotype[i]

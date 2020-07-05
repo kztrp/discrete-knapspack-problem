@@ -7,7 +7,9 @@ def print_population(population, max_weight):
     for individual in population:
         print(individual.genotype)
         print("{}/{}".format(individual.weight_used, max_weight))
+        print("Created in {} iteration".format(individual.iteration))
         print("Score: {}\n".format(individual.score))
+
 
 def generate_population(size, max_weight, items):
     population = []
@@ -18,22 +20,24 @@ def generate_population(size, max_weight, items):
     return population
 
 
-def roulette_breeding(population):
+def roulette_breeding(population, iteration):
     total_score = 0
-    copied_size = floor(0.3 * len(population))
-    bred_size = ceil(0.7 * len(population))
+    copied_size = floor(0.15 * len(population))
+    bred_size = ceil(0.85 * len(population))
     if bred_size % 2 == 1:
         copied_size += 1
         bred_size -= 1
     population.sort(key=lambda x: x.score, reverse=True)
-    new_population = [population[:copied_size]]
+    new_population = []
+    for i in range(copied_size):
+        new_population.append(population[i])
     for individual in population:
         total_score += individual.score
-    for i in range(bred_size/2):
+    for i in range(round(bred_size/2)):
         found = [False, False]
         selected_value = [random.randint(0, total_score), random.randint(0, total_score)]
+        parents = []
         for individual in population:
-            parents = []
             selected_value[0] -= individual.score
             selected_value[1] -= individual.score
             if not found[0] and selected_value[0] <= 0:
@@ -46,7 +50,18 @@ def roulette_breeding(population):
         ind_b = Individual(parents[0].items, parents[0].max_weight)
         ind_a.breeding(parents[0], parents[1])
         ind_b.breeding(parents[1], parents[0])
-        new_population.append(ind_a, ind_b)
+        ind_a.iteration = iteration
+        ind_b.iteration = iteration
+        new_population.append(ind_a)
+        new_population.append(ind_b)
+        #print_population(new_population, ind_a.max_weight)
+
+    new_population.sort(key=lambda x: x.score, reverse=True)
     return new_population
 
 
+def run_algorithm(population, iterations):
+    new_population = population
+    for i in range(iterations):
+        new_population = roulette_breeding(new_population, i)
+    return new_population
