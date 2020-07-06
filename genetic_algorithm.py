@@ -7,6 +7,7 @@ def print_population(population):
     for individual in population:
         print(individual)
 
+
 def generate_population(size, max_weight, items):
     population = []
     for i in range(size):
@@ -61,3 +62,12 @@ def run_algorithm(population, iterations):
     for i in range(iterations):
         new_population = roulette_breeding(new_population, i)
     return new_population
+
+
+def export_results(population, parameters, filename):
+    with open("exported_results/"+filename, "w", ) as f:
+        for x, y in parameters.items():
+            f.write("{}: {}\n".format(x, y))
+        f.write("\n\n")
+        for individual in population:
+            f.write(individual.__repr__())
