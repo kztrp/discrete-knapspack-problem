@@ -9,6 +9,7 @@ class Individual:
         self.items = items
         self.score = 0
         self.iteration = 0
+        self.tag = 0
 
     def generate_genotype(self):
         for i in range(len(self.genotype)):
@@ -17,6 +18,7 @@ class Individual:
         for i in range(len(self.items)):
             if self.genotype[i]:
                 self.score += self.items[i].value
+        self.generate_tag()
 
     def correct_genotype(self):
         for i in range(len(self.items)):
@@ -43,6 +45,7 @@ class Individual:
                 self.genotype[i] = ind_b.genotype[i]
         self.mutate()
         self.correct_genotype()
+        self.generate_tag()
         for i in range(len(self.items)):
             if self.genotype[i]:
                 self.score += self.items[i].value
@@ -51,3 +54,8 @@ class Individual:
         for i in range(len(self.genotype)):
             if random.uniform(0, 1) < 0.02:
                 self.genotype[i] = not self.genotype[i]
+
+    def generate_tag(self):
+        self.tag = 0
+        for i in range(len(self.genotype)):
+            self.tag += 2**(len(self.genotype)-i-1)

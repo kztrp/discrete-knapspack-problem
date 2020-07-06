@@ -7,6 +7,7 @@ def print_population(population, max_weight):
     for individual in population:
         print(individual.genotype)
         print("{}/{}".format(individual.weight_used, max_weight))
+        print("Tag: {}".format(hex(individual.tag)))
         print("Created in {} iteration".format(individual.iteration))
         print("Score: {}\n".format(individual.score))
 
