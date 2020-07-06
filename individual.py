@@ -59,3 +59,12 @@ class Individual:
         self.tag = 0
         for i in range(len(self.genotype)):
             self.tag += 2**(len(self.genotype)-i-1)
+
+    def __repr__(self) -> str:
+        representation = ""
+        representation += "{}\n".format(self.genotype)
+        representation += "{}/{}\n".format(self.weight_used, self.max_weight)
+        representation += "Tag: {}\n".format(hex(self.tag))
+        representation += "Created in {} iteration\n".format(self.iteration)
+        representation += "Score: {}\n".format(self.score)
+        return representation
