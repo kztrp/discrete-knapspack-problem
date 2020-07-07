@@ -51,7 +51,6 @@ def roulette_breeding(population, iteration):
         ind_b.iteration = iteration
         new_population.append(ind_a)
         new_population.append(ind_b)
-        #print_population(new_population, ind_a.max_weight)
 
     new_population.sort(key=lambda x: x.score, reverse=True)
     return new_population
