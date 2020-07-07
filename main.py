@@ -30,8 +30,7 @@ def main():
         if not path.isdir("exported_results"):
             mkdir("exported_results")
         export_results(population, parameters, filename)
-    else:
-        pass
+
 
 if __name__ == "__main__":
     main()

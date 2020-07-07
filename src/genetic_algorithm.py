@@ -64,9 +64,14 @@ def run_algorithm(population, iterations):
 
 
 def export_results(population, parameters, filename):
-    with open("exported_results/"+filename, "w", ) as f:
-        for x, y in parameters.items():
-            f.write("{}: {}\n".format(x, y))
-        f.write("\n\n")
-        for individual in population:
-            f.write(individual.__repr__())
+    try:
+        with open("exported_results/"+filename, 'w+') as f:
+            if parameters != "":
+                for x, y in parameters.items():
+                    f.write("{}: {}\n".format(x, y))
+            f.write("\n\n")
+            for individual in population:
+                f.write(individual.__repr__())
+        return True
+    except NotADirectoryError and FileNotFoundError:
+        return False
