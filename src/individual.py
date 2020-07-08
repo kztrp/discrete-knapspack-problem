@@ -1,6 +1,6 @@
 import random
 
-1
+
 class Individual:
     def __init__(self, items, max_weight):
         self.genotype = [False] * len(items)
